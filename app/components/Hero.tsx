@@ -6,7 +6,7 @@ export default function Hero() {
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0">
         <Image
-          src="/kynd-hero.jpg"
+          src="/content/kynd-hero.jpg"
           alt="Wellness background"
           fill
           priority
