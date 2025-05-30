@@ -1,33 +1,10 @@
 import Link from "next/link";
+import Hero from "./components/Hero";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center bg-gradient-to-b from-purple-50 to-white">
-        <div className="container mx-auto px-6 py-16 text-center">
-          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-            Your Journey to Wellness Starts Here
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-2xl mx-auto">
-            Experience personalized wellness through virtual classes, guided meditation, and mindful self-care tracking with KyndSpace.
-          </p>
-          <div className="flex gap-4 justify-center">
-            <Link
-              href="/auth"
-              className="bg-purple-600 text-white px-8 py-3 rounded-full font-medium hover:bg-purple-700 transition-colors"
-            >
-              Start Your Journey
-            </Link>
-            <Link
-              href="/auth"
-              className="border-2 border-purple-600 text-purple-600 px-8 py-3 rounded-full font-medium hover:bg-purple-50 transition-colors"
-            >
-              Sign In
-            </Link>
-          </div>
-        </div>
-      </section>
+      <Hero />
 
       {/* Features Section */}
       <section className="py-20 bg-white">
