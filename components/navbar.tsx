@@ -33,7 +33,7 @@ export default function Navbar() {
                         width={32} 
                         height={32} 
                     /> */}
-                    <Link href="/" className="text-2xl font-bold text-white">KyndSpace</Link>
+                    <Link href="/" className="text-2xl font-bold text-white">KYNDSPACE</Link>
                 </div>
                 
                 <div className="hidden md:flex items-center gap-9 text-lg font-semibold">
