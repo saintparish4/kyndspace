@@ -1,9 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
+import Navbar from "@/components/navbar";
 
 export default function Hero() {
   return (
+    <>
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      <Navbar />
       <div className="absolute inset-0">
         <Image
           src="/content/kynd-hero.jpg"
@@ -38,5 +41,6 @@ export default function Hero() {
         </div>
       </div>
     </section>
+    </>
   );
 } 
