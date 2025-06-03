@@ -7,17 +7,18 @@ export default function Hero() {
     <>
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
       <Navbar />
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 w-full h-full">
         <Image
           src="/content/kynd-hero.jpg"
           alt="Wellness background"
           fill
           priority
-          className="object-cover"
+          className="object-cover object-center"
+          sizes="100vw"
           quality={100}
         />
       </div>
-      <div className="absolute inset-0 " />
+      <div className="absolute inset-0 bg-black/20" />
       <div className="container mx-auto px-6 py-16 text-center relative z-10">
         <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
           Your Journey to Wellness Starts Here
