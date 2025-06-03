@@ -23,7 +23,7 @@ export default function Navbar() {
         <nav className="fixed top-0 left-0 right-0 z-50">
             <div className={`flex justify-between items-center p-4 transition-all duration-300 ${
                 isScrolled 
-                ? 'bg-gradient-to-r from-purple-600/40 via-purple-500/40 to-pink-600/40 backdrop-blur-md shadow-lg border-b border-white/10' 
+                ? 'bg-gradient-to-r from-sky-400/60 via-pink-200/60 to-teal-300/60 backdrop-blur-md shadow-lg border-b border-white/10' 
                 : ''
             }`}>
                 <div className="flex items-center gap-4">
@@ -33,20 +33,20 @@ export default function Navbar() {
                         width={32} 
                         height={32} 
                     /> */}
-                    <Link href="/" className="text-2xl font-bold text-white">KyndSpace</Link>
+                    <Link href="/" className="text-xl font-bold text-white">KYNDSPACE</Link>
                 </div>
                 
                 <div className="hidden md:flex items-center gap-9 text-lg font-semibold">
-                    <Link href="/" className="text-white hover:text-gray-300 hover:underline hover:underline-offset-7 hover:decoration-rose-400 transition-colors">
+                    <Link href="/" className="text-white hover:text-gray-200 hover:underline hover:underline-offset-7 hover:decoration-rose-400 transition-colors">
                         Home
                     </Link>
-                    <Link href="/classes" className="text-white hover:text-gray-300 hover:underline hover:underline-offset-7 hover:decoration-rose-400 transition-colors">
+                    <Link href="/classes" className="text-white hover:text-gray-200 hover:underline hover:underline-offset-7 hover:decoration-rose-400 transition-colors">
                         Classes
                     </Link>
-                    <Link href="/meditation" className="text-white hover:text-gray-300 hover:underline hover:underline-offset-7 hover:decoration-rose-400 transition-colors">
+                    <Link href="/meditation" className="text-white hover:text-gray-200 hover:underline hover:underline-offset-7 hover:decoration-rose-400 transition-colors">
                         Meditation
                     </Link>
-                    <Link href="/tracking" className="text-white hover:text-gray-300 hover:underline hover:underline-offset-7 hover:decoration-rose-400 transition-colors">
+                    <Link href="/tracking" className="text-white hover:text-gray-200 hover:underline hover:underline-offset-7 hover:decoration-rose-400 transition-colors">
                         Tracking
                     </Link>
                 </div>

@@ -1,2 +1,15 @@
 @import "tailwindcss";
 
+.bg-dreamy-gradient {
+  background:
+
+    radial-gradient(ellipse at 60% 95%, #e7e2d0 0%, #b6b49e 30%, transparent 70%),
+
+    linear-gradient(to bottom, transparent 60%, #e2d3a7 70%, #a3b6b2 80%, #6d8683 100%),
+
+    linear-gradient(to bottom, transparent 45%, #b0a7b2 55%, #8d7e8a 60%, transparent 70%),
+
+    linear-gradient(to bottom, #f3ede3 0%, #e7dcc3 60%, #f5e9c8 100%);
+  background-blend-mode: lighten, multiply, normal, normal;
+}
+
