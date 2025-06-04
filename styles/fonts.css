@@ -1,0 +1,33 @@
+@font-face {
+    font-family: 'Supreme';
+    src: url('../public/fonts/Supreme-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Supreme';
+    src: url('../public/fonts/Supreme-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Example usage classes */
+.supreme-text {
+    font-family: 'Supreme', sans-serif;
+    font-weight: 500;
+}
+
+.supreme-text-lg {
+    font-family: 'Supreme', sans-serif;
+    font-weight: 500;
+    font-size: 5rem;
+}
+
+.supreme-regular {
+    font-family: 'Supreme', sans-serif;
+    font-weight: 400;
+    font-size: 1.7rem;
+}

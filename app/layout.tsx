@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "KyndSpace",
+  title: "Meditation and Mindfulness Made Simple - Kyndspace",
   description: "Your personal wellness journey companion - connect, grow, and thrive",
 };
 
