@@ -1,108 +1,93 @@
+"use client";
 import React from 'react';
+import Hero from './_components/Hero';
+import ResourceCards from './_components/ResourceCards';
+import ArticlePreviewGrid from './_components/ArticlePreviewGrid';
+import PromoSection from './_components/PromoSection';
+import MoreArticlesSection from './_components/MoreArticlesSection';
+import Footer from './_components/Footer';
+import MenuNav from '@/global/components/menu-nav';
+import Promobanner from '@/global/components/promobanner';
 
 export default function MentalHealthPage() {
-  const resources = [
-    {
-      title: "Stress Management",
-      description: "Learn effective techniques to manage and reduce stress in your daily life.",
-      category: "Self-Care",
-      icon: "🧘‍♂️"
-    },
-    {
-      title: "Anxiety Relief",
-      description: "Discover practical strategies to cope with anxiety and worry.",
-      category: "Mental Wellness",
-      icon: "😌"
-    },
-    {
-      title: "Emotional Well-being",
-      description: "Tools and practices to enhance your emotional health and resilience.",
-      category: "Self-Care",
-      icon: "💫"
-    },
-    {
-      title: "Professional Support",
-      description: "Connect with mental health professionals for personalized guidance.",
-      category: "Support",
-      icon: "🤝"
-    }
+  // Placeholder data
+  const resourceCards = [
+    { icon: '📚', title: 'Mental health resources', description: 'Evidence-based practices and expert-led guidance to help you do more of what matters to you.' },
+    { icon: '🎧', title: 'Podcasts', description: 'Episodes of Headspace podcasts to inspire hope, love, and respect.' },
+    { icon: '💬', title: 'Headspace conversations', description: 'Deep and honest conversations about anything from shame and anger, sadness and parenting.' },
   ];
 
-  const supportTools = [
-    {
-      title: "Mood Tracker",
-      description: "Track your daily mood patterns and identify triggers.",
-      features: ["Daily logging", "Pattern analysis", "Progress insights"]
-    },
-    {
-      title: "Guided Journaling",
-      description: "Express your thoughts and feelings through structured journaling prompts.",
-      features: ["Daily prompts", "Reflection exercises", "Progress tracking"]
-    },
-    {
-      title: "Crisis Resources",
-      description: "Immediate support and resources for mental health emergencies.",
-      features: ["24/7 helpline", "Emergency contacts", "Crisis intervention"]
-    }
+  const articles = [
+    { title: 'Mental health coaching', summary: "One-on-one text-based support to guide you through life's challenges.", link: '#' },
+    { title: 'Managing stress', summary: "It's not always possible to control what's happening around us, but it is possible to change how we relate to stressful events.", link: '#' },
+    { title: 'Everyday anxiety', summary: 'Feelings of anxiousness can be unsettling, but there are ways to cope.', link: '#' },
+  ];
+
+  const promoBullets = [
+    'Access the full library of 500+ meditations on everything from stress, to resilience, to compassion',
+    'Put your mind to bed with sleep sounds, music, and wind-down exercises',
+    'Make mindfulness a part of your daily routine with tension-releasing workouts, relaxing yoga, Focus music playlists, and more',
+  ];
+
+  const categories = [
+    { name: 'All Articles', icon: '📖' },
+    { name: 'Sleep', icon: '😴' },
+    { name: 'Meditation', icon: '🧘' },
+    { name: 'Mindfulness', icon: '🎈' },
+  ];
+  const articlesByCategory = {
+    'All Articles': [ { title: 'What is mental health coaching?', link: '#' } ],
+    'Sleep': [ { title: 'How to sleep better', link: '#' } ],
+    'Meditation': [ { title: 'Meditation for beginners', link: '#' } ],
+    'Mindfulness': [ { title: 'Mindfulness in daily life', link: '#' } ],
+  };
+
+  const footerSections = [
+    { title: 'Get some Headspace', links: [ { label: 'Mental health coaching', href: '#' }, { label: 'Meditation', href: '#' } ] },
+    { title: 'Our content', links: [ { label: 'Articles', href: '#' }, { label: 'Podcasts', href: '#' } ] },
+    { title: 'About us', links: [ { label: 'About Headspace', href: '#' }, { label: 'Careers', href: '#' } ] },
+    { title: 'Support', links: [ { label: 'Help', href: '#' }, { label: 'Contact', href: '#' } ] },
   ];
 
   return (
-    <div className="min-h-screen pt-24 px-4 md:px-8 max-w-7xl mx-auto">
-      <h1 className="text-4xl font-bold mb-8 text-center bg-gradient-to-r from-sky-400 via-pink-200 to-teal-300 bg-clip-text text-transparent">
-        Mental Health
-      </h1>
-      <p className="text-lg text-gray-600 mb-12 text-center max-w-3xl mx-auto">
-        Your journey to better mental health starts here. Access resources, tools, and support for your well-being.
-      </p>
-
-      <section className="mb-16">
-        <h2 className="text-2xl font-semibold mb-6 text-white">Mental Health Resources</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {resources.map((resource, index) => (
-            <div key={index} className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20">
-              <div className="text-4xl mb-4">{resource.icon}</div>
-              <span className="text-sm px-3 py-1 rounded-full bg-gradient-to-r from-sky-400/20 via-pink-200/20 to-teal-300/20 mb-4 inline-block">
-                {resource.category}
-              </span>
-              <h3 className="text-xl font-semibold mb-2 text-white">{resource.title}</h3>
-              <p className="text-gray-300">{resource.description}</p>
-            </div>
-          ))}
+    <main className="w-full min-h-screen bg-gradient-to-b from-white to-gray-50 flex flex-col">
+      <Promobanner />
+      <MenuNav />
+      <div className="flex-grow">
+        <Hero
+          headline="Supporting your mental health"
+          subheadline="Mental health resources and expert-led guidance to help you take better care of yourself."
+          videoUrl={undefined}
+          ctaText="Try for free"
+          ctaOnClick={() => {}}
+        />
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-24">
+          <section className="w-full animate-fade-in-up">
+            <ResourceCards cards={resourceCards} />
+          </section>
+          
+          <section className="w-full animate-fade-in-up" style={{ animationDelay: '200ms' }}>
+            <ArticlePreviewGrid articles={articles} />
+          </section>
+          
+          <section className="w-full animate-fade-in-up" style={{ animationDelay: '400ms' }}>
+            <PromoSection
+              title="Be kind to your mind"
+              bullets={promoBullets}
+              offer="7-day free trial. $5.83 USD/month after."
+              ctaText="Get this deal"
+              ctaOnClick={() => {}}
+            />
+          </section>
+          
+          <section className="w-full animate-fade-in-up" style={{ animationDelay: '600ms' }}>
+            <MoreArticlesSection categories={categories} articlesByCategory={articlesByCategory} />
+          </section>
         </div>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-semibold mb-6 text-white">Support Tools</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {supportTools.map((tool, index) => (
-            <div key={index} className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 hover:border-white/40 transition-all duration-300">
-              <h3 className="text-xl font-semibold mb-2 text-white">{tool.title}</h3>
-              <p className="text-gray-300 mb-4">{tool.description}</p>
-              <ul className="space-y-2 mb-4">
-                {tool.features.map((feature, featureIndex) => (
-                  <li key={featureIndex} className="text-gray-300 flex items-center">
-                    <span className="text-sky-400 mr-2">•</span>
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-              <button className="text-sm font-medium text-white hover:text-sky-400 transition-colors">
-                Access Tool →
-              </button>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <div className="mt-16 p-6 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 text-center">
-        <h3 className="text-xl font-semibold mb-2 text-white">Need Immediate Support?</h3>
-        <p className="text-gray-300 mb-4">
-          If you're experiencing a mental health crisis, help is available 24/7.
-        </p>
-        <button className="bg-gradient-to-r from-sky-400 via-pink-200 to-teal-300 text-white px-6 py-2 rounded-full font-semibold hover:opacity-90 transition-opacity">
-          Get Help Now
-        </button>
       </div>
-    </div>
+      <div className="mt-auto">
+        <Footer sections={footerSections} />
+      </div>
+    </main>
   );
 } 

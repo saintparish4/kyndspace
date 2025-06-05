@@ -1,5 +1,15 @@
 import React from 'react';
-
+import MindfulnessPractices from './_components/MindfulnessPractices';
+import MindfulnessBenefits from './_components/MindfulnessBenefits';
+import HeroSection from './_components/HeroSection';
+import BenefitsRow from './_components/BenefitsRow';
+import TipsToolsSection from './_components/TipsToolsSection';
+import ContentCarousel from './_components/ContentCarousel';
+import PromoSection from './_components/PromoSection';
+import ArticlesRow from './_components/ArticlesRow';
+import MenuNav from '@/global/components/menu-nav';
+import Promobanner from '@/global/components/promobanner';
+  
 export default function MindfulnessPage() {
   const practices = [
     {
@@ -46,47 +56,29 @@ export default function MindfulnessPage() {
   ];
 
   return (
-    <div className="min-h-screen pt-24 px-4 md:px-8 max-w-7xl mx-auto">
-      <h1 className="text-4xl font-bold mb-8 text-center bg-gradient-to-r from-sky-400 via-pink-200 to-teal-300 bg-clip-text text-transparent">
-        Mindfulness
-      </h1>
-      <p className="text-lg text-gray-600 mb-12 text-center max-w-3xl mx-auto">
-        Cultivate presence and awareness in your daily life through our guided mindfulness practices.
-      </p>
-
-      <section className="mb-16">
-        <h2 className="text-2xl font-semibold mb-6 text-white">Mindfulness Practices</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {practices.map((practice, index) => (
-            <div key={index} className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 hover:border-white/40 transition-all duration-300">
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-sm px-3 py-1 rounded-full bg-gradient-to-r from-sky-400/20 via-pink-200/20 to-teal-300/20">
-                  {practice.level}
-                </span>
-                <span className="text-sm text-gray-400">{practice.duration}</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-2 text-white">{practice.title}</h3>
-              <p className="text-gray-300 mb-4">{practice.description}</p>
-              <button className="text-sm font-medium text-white hover:text-sky-400 transition-colors">
-                Start Practice →
-              </button>
-            </div>
-          ))}
+    <div className="min-h-screen w-full bg-gray-50">
+      <Promobanner />
+      <MenuNav />
+      <main className="w-full max-w-[1920px] mx-auto">
+        <HeroSection />
+        <div className="px-4 md:px-8 space-y-16 py-16">
+          <BenefitsRow />
+          <TipsToolsSection />
+          <ContentCarousel />
+          <PromoSection />
+          <ArticlesRow />
+          <section className="bg-white rounded-3xl p-8 md:p-12 shadow-lg">
+            <h1 className="text-4xl md:text-5xl font-bold mb-8 text-center bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+              Mindfulness
+            </h1>
+            <p className="text-lg text-gray-600 mb-12 text-center max-w-3xl mx-auto">
+              Cultivate presence and awareness in your daily life through our guided mindfulness practices.
+            </p>
+            <MindfulnessPractices practices={practices} />
+            <MindfulnessBenefits benefits={benefits} />
+          </section>
         </div>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-semibold mb-6 text-white">Benefits of Mindfulness</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {benefits.map((benefit, index) => (
-            <div key={index} className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20">
-              <div className="text-4xl mb-4">{benefit.icon}</div>
-              <h3 className="text-xl font-semibold mb-2 text-white">{benefit.title}</h3>
-              <p className="text-gray-300">{benefit.description}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+      </main>
     </div>
   );
 } 

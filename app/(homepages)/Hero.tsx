@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import Navbar from "@/components/navbar";
+import Navbar from "@/global/components/navbar";
 import '@/styles/fonts.css'; 
 
 export default function Hero() {
