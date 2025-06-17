@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Image from 'next/image';
 import { signIn } from '../../lib/sign-in';
 import { signUp } from '../../lib/sign-up';
@@ -25,7 +25,7 @@ const Footer = () => {
   );
 };
 
-export default function AuthPage() {
+function AuthContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirectPath = searchParams.get('redirect');
@@ -208,5 +208,13 @@ export default function AuthPage() {
       </div>
       <Footer />
     </div>
+  );
+}
+
+export default function AuthPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <AuthContent />
+    </Suspense>
   );
 }
