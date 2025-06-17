@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { signIn } from '../../lib/sign-in';
 import { signUp } from '../../lib/sign-up';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { FaDiscord, FaGoogle } from 'react-icons/fa';
 
 // Separate footer component to avoid hydration issues
@@ -27,6 +27,8 @@ const Footer = () => {
 
 export default function AuthPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectPath = searchParams.get('redirect');
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -53,7 +55,7 @@ export default function AuthPage() {
           setError(error.message ?? 'Authentication failed');
           return;
         }
-        router.push('/');
+        router.replace(redirectPath || '/');
       } else {
         if (formData.password !== formData.confirmPassword) {
           setError('Passwords do not match');
@@ -69,7 +71,7 @@ export default function AuthPage() {
           setError(error.message ?? 'Registration failed');
           return;
         }
-        router.push('/');
+        router.replace(redirectPath || '/');
       }
     } catch {
       setError('An unexpected error occurred');
