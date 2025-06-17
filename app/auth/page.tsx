@@ -1,23 +1,46 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { signIn } from '@/lib/sign-in';
-import { signUp } from '@/lib/sign-up';
+import { signIn } from '../../lib/sign-in';
+import { signUp } from '../../lib/sign-up';
 import { useRouter } from 'next/navigation';
 import { FaDiscord, FaGoogle } from 'react-icons/fa';
+
+// Separate footer component to avoid hydration issues
+const Footer = () => {
+  const [year, setYear] = useState<number | null>(null);
+  
+  useEffect(() => {
+    setYear(new Date().getFullYear());
+  }, []);
+
+  if (year === null) return null;
+
+  return (
+    <footer className="w-full flex flex-col md:flex-row justify-center md:justify-between items-center px-8 py-4 text-md font-bold text-gray-100 tracking-widest select-none mt-8 absolute left-0 bottom-0">
+      <span className="mb-2 md:mb-0">KYNDSPACE</span>
+      <span>{year}</span>
+    </footer>
+  );
+};
 
 export default function AuthPage() {
   const router = useRouter();
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
     confirmPassword: '',
     name: '',
   });
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -59,6 +82,10 @@ export default function AuthPage() {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-dreamy-gradient">
@@ -107,28 +134,28 @@ export default function AuthPage() {
                 onChange={handleChange}
               />
               {!isLogin && (
-                <input
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  type="password"
-                  required
-                  className="appearance-none rounded-md block w-full px-3 py-2 border border-gray-200 bg-white/80 placeholder-gray-400 text-gray-900 focus:outline-none focus:ring-2 focus:ring-sky-300 focus:border-sky-400 shadow-sm focus:shadow-md sm:text-sm transition"
-                  placeholder="Confirm Password"
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                />
-              )}
-              {!isLogin && (
-                <input
-                  id="name"
-                  name="name"
-                  type="text"
-                  required
-                  className="appearance-none rounded-md block w-full px-3 py-2 border border-gray-200 bg-white/80 placeholder-gray-400 text-gray-900 focus:outline-none focus:ring-2 focus:ring-sky-300 focus:border-sky-400 shadow-sm focus:shadow-md sm:text-sm transition"
-                  placeholder="Username"
-                  value={formData.name}
-                  onChange={handleChange}
-                />
+                <>
+                  <input
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    type="password"
+                    required
+                    className="appearance-none rounded-md block w-full px-3 py-2 border border-gray-200 bg-white/80 placeholder-gray-400 text-gray-900 focus:outline-none focus:ring-2 focus:ring-sky-300 focus:border-sky-400 shadow-sm focus:shadow-md sm:text-sm transition"
+                    placeholder="Confirm Password"
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
+                  />
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    required
+                    className="appearance-none rounded-md block w-full px-3 py-2 border border-gray-200 bg-white/80 placeholder-gray-400 text-gray-900 focus:outline-none focus:ring-2 focus:ring-sky-300 focus:border-sky-400 shadow-sm focus:shadow-md sm:text-sm transition"
+                    placeholder="Username"
+                    value={formData.name}
+                    onChange={handleChange}
+                  />
+                </>
               )}
               <button
                 type="submit"
@@ -177,11 +204,7 @@ export default function AuthPage() {
           </div>
         </div>
       </div>
-      {/* Footer */}
-      <footer className="w-full flex flex-col md:flex-row justify-center md:justify-between items-center px-8 py-4 text-md font-bold text-gray-100 tracking-widest select-none mt-8 absolute left-0 bottom-0 ">
-        <span className="mb-2 md:mb-0">KYNDSPACE</span>
-        <span>{new Date().getFullYear()}</span>
-      </footer>
+      <Footer />
     </div>
   );
 }

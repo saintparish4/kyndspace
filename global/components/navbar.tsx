@@ -5,8 +5,10 @@ import Link from "next/link";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
     const handleScroll = () => {
       if (window.scrollY > 20) {
         setIsScrolled(true);
@@ -23,7 +25,7 @@ export default function Navbar() {
     <nav className="fixed top-0 left-0 right-0 z-50">
       <div
         className={`flex justify-between items-center p-4 transition-all duration-300 ${
-          isScrolled
+          isMounted && isScrolled
             ? "bg-gradient-to-r from-sky-400/60 via-pink-200/60 to-teal-300/60 backdrop-blur-md shadow-lg border-b border-white/10"
             : ""
         }`}

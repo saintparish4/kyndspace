@@ -127,9 +127,18 @@ exports.Prisma.UserScalarFieldEnum = {
   emailVerified: 'emailVerified',
   image: 'image',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  role: 'role',
-  status: 'status'
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SessionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  token: 'token',
+  expiresAt: 'expiresAt',
+  ipAddress: 'ipAddress',
+  userAgent: 'userAgent',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.AccountScalarFieldEnum = {
@@ -144,17 +153,7 @@ exports.Prisma.AccountScalarFieldEnum = {
   scope: 'scope',
   idToken: 'idToken',
   password: 'password',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.SessionScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  token: 'token',
   expiresAt: 'expiresAt',
-  ipAddress: 'ipAddress',
-  userAgent: 'userAgent',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -186,8 +185,8 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   User: 'User',
-  Account: 'Account',
   Session: 'Session',
+  Account: 'Account',
   Verification: 'Verification'
 };
 
