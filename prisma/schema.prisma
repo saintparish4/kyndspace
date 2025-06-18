@@ -21,6 +21,7 @@ model User {
   sessions       Session[]
   account        Account?
   journalEntries JournalEntry[]
+  Habit          Habit[]
 
   @@map("users")
 }
@@ -75,15 +76,27 @@ model Verification {
 }
 
 model JournalEntry {
-  id     String @id @default(cuid())
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  content String
-  date    DateTime
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  content   String
+  date      DateTime
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@unique([userId, date])
 }
 
+model Habit {
+  id          String   @id @default(cuid())
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String
+  title       String
+  isCompleted Boolean  @default(false)
+  date        DateTime
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
+  @@unique([userId, id])
+  @@index([userId, date])
+}

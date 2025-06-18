@@ -176,6 +176,16 @@ exports.Prisma.JournalEntryScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.HabitScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  title: 'title',
+  isCompleted: 'isCompleted',
+  date: 'date',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -197,7 +207,8 @@ exports.Prisma.ModelName = {
   Session: 'Session',
   Account: 'Account',
   Verification: 'Verification',
-  JournalEntry: 'JournalEntry'
+  JournalEntry: 'JournalEntry',
+  Habit: 'Habit'
 };
 
 /**
