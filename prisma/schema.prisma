@@ -21,7 +21,8 @@ model User {
   sessions       Session[]
   account        Account?
   journalEntries JournalEntry[]
-  Habit          Habit[]
+  habits         Habit[]
+  bookings       Booking[]
 
   @@map("users")
 }
@@ -40,6 +41,7 @@ model Session {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("sessions")
+  @@index([userId])
 }
 
 model Account {
@@ -62,6 +64,7 @@ model Account {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("accounts")
+  @@index([userId])
 }
 
 model Verification {
@@ -73,6 +76,7 @@ model Verification {
   updatedAt  DateTime @updatedAt
 
   @@map("verifications")
+  @@index([identifier])
 }
 
 model JournalEntry {
@@ -85,13 +89,14 @@ model JournalEntry {
   updatedAt DateTime @updatedAt
 
   @@unique([userId, date])
+  @@index([userId])
 }
 
 model Habit {
   id          String   @id @default(cuid())
-  user        User     @relation(fields: [userId], references: [id])
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String
-  title       String
+  title       String   @db.VarChar(255)
   isCompleted Boolean  @default(false)
   date        DateTime
   createdAt   DateTime @default(now())
@@ -99,4 +104,33 @@ model Habit {
 
   @@unique([userId, id])
   @@index([userId, date])
+}
+
+model Class {
+  id           String    @id @default(cuid())
+  title        String    @db.VarChar(255)
+  description  String?   @db.Text
+  startTime    DateTime
+  durationMins Int       @default(15)
+  instructor   String    @db.VarChar(100)
+  imageUrl     String?
+  capacity     Int       @default(10)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  bookings     Booking[]
+
+  @@index([startTime])
+}
+
+model Booking {
+  id        String   @id @default(cuid())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  class     Class    @relation(fields: [classId], references: [id], onDelete: Cascade)
+  classId   String
+  createdAt DateTime @default(now())
+
+  @@unique([userId, classId]) // One booking per class per user 
+  @@index([userId])
+  @@index([classId])
 }

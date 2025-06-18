@@ -186,6 +186,26 @@ exports.Prisma.HabitScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.ClassScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  startTime: 'startTime',
+  durationMins: 'durationMins',
+  instructor: 'instructor',
+  imageUrl: 'imageUrl',
+  capacity: 'capacity',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.BookingScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  classId: 'classId',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -208,7 +228,9 @@ exports.Prisma.ModelName = {
   Account: 'Account',
   Verification: 'Verification',
   JournalEntry: 'JournalEntry',
-  Habit: 'Habit'
+  Habit: 'Habit',
+  Class: 'Class',
+  Booking: 'Booking'
 };
 
 /**
