@@ -207,6 +207,16 @@ exports.Prisma.BookingScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.NotificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  message: 'message',
+  type: 'type',
+  isRead: 'isRead',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -231,7 +241,8 @@ exports.Prisma.ModelName = {
   JournalEntry: 'JournalEntry',
   Habit: 'Habit',
   Class: 'Class',
-  Booking: 'Booking'
+  Booking: 'Booking',
+  Notification: 'Notification'
 };
 
 /**

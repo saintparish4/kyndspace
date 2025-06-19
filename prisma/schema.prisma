@@ -1,6 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
-  output   = "../app/generated/prisma"
+  provider      = "prisma-client-js"
+  output        = "../app/generated/prisma"
   binaryTargets = ["native", "rhel-openssl-3.0.x"]
 }
 
@@ -12,7 +12,7 @@ datasource db {
 model User {
   id            String   @id @default(cuid())
   name          String?
-  avatarUrl     String? 
+  avatarUrl     String?
   email         String   @unique
   emailVerified Boolean  @default(false)
   image         String?
@@ -25,6 +25,7 @@ model User {
   journalEntries JournalEntry[]
   habits         Habit[]
   bookings       Booking[]
+  Notification   Notification[]
 
   @@map("users")
 }
@@ -42,8 +43,8 @@ model Session {
   // Relations
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@map("sessions")
   @@index([userId])
+  @@map("sessions")
 }
 
 model Account {
@@ -65,8 +66,8 @@ model Account {
   // Relations
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@map("accounts")
   @@index([userId])
+  @@map("accounts")
 }
 
 model Verification {
@@ -77,8 +78,8 @@ model Verification {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
-  @@map("verifications")
   @@index([identifier])
+  @@map("verifications")
 }
 
 model JournalEntry {
@@ -135,4 +136,19 @@ model Booking {
   @@unique([userId, classId]) // One booking per class per user 
   @@index([userId])
   @@index([classId])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  message   String   @db.Text
+  type      String?  @db.VarChar(50) // e.g., 'info', 'warning', 'success', 'reminder'
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId, isRead])
+  @@index([userId, type])
+  @@map("notifications")
 }
