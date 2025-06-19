@@ -14,8 +14,9 @@
   "dependencies": {
     "@prisma/client": "^6.8.2",
     "@prisma/extension-accelerate": "^2.0.1",
+    "@supabase/supabase-js": "^2.50.0",
     "@tanstack/react-query": "^5.80.7",
-    "better-auth": "^1.2.8",
+    "better-auth": "^1.2.9",
     "date-fns": "^4.1.0",
     "next": "^15.3.3",
     "react": "^19.1.0",
