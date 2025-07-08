@@ -127,7 +127,16 @@ exports.Prisma.UserScalarFieldEnum = {
   emailVerified: 'emailVerified',
   image: 'image',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  timezone: 'timezone',
+  preferences: 'preferences',
+  aiCoachEnabled: 'aiCoachEnabled',
+  biometricSyncEnabled: 'biometricSyncEnabled',
+  baseStressLevel: 'baseStressLevel',
+  sleepGoal: 'sleepGoal',
+  stepsGoal: 'stepsGoal',
+  workSchedule: 'workSchedule',
+  personalityProfile: 'personalityProfile'
 };
 
 exports.Prisma.SessionScalarFieldEnum = {
@@ -172,6 +181,11 @@ exports.Prisma.JournalEntryScalarFieldEnum = {
   userId: 'userId',
   content: 'content',
   date: 'date',
+  mood: 'mood',
+  stressLevel: 'stressLevel',
+  emotionScores: 'emotionScores',
+  topics: 'topics',
+  sentiment: 'sentiment',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -182,6 +196,9 @@ exports.Prisma.HabitScalarFieldEnum = {
   title: 'title',
   isCompleted: 'isCompleted',
   date: 'date',
+  aiSuggested: 'aiSuggested',
+  adaptiveReminder: 'adaptiveReminder',
+  difficultyLevel: 'difficultyLevel',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -195,6 +212,11 @@ exports.Prisma.ClassScalarFieldEnum = {
   instructor: 'instructor',
   imageUrl: 'imageUrl',
   capacity: 'capacity',
+  intensity: 'intensity',
+  stressLevel: 'stressLevel',
+  aiOptimized: 'aiOptimized',
+  adaptiveContent: 'adaptiveContent',
+  prerequisites: 'prerequisites',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -203,7 +225,214 @@ exports.Prisma.BookingScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   classId: 'classId',
+  aiSuggested: 'aiSuggested',
+  predictedEffectiveness: 'predictedEffectiveness',
   createdAt: 'createdAt'
+};
+
+exports.Prisma.BiometricDataScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  heartRate: 'heartRate',
+  heartRateVariability: 'heartRateVariability',
+  stressLevel: 'stressLevel',
+  sleepQuality: 'sleepQuality',
+  sleepDuration: 'sleepDuration',
+  steps: 'steps',
+  calories: 'calories',
+  respiratoryRate: 'respiratoryRate',
+  skinTemperature: 'skinTemperature',
+  bloodPressureSystolic: 'bloodPressureSystolic',
+  bloodPressureDiastolic: 'bloodPressureDiastolic',
+  oxygenSaturation: 'oxygenSaturation',
+  wellnessScore: 'wellnessScore',
+  energyLevel: 'energyLevel',
+  recoveryScore: 'recoveryScore',
+  deviceType: 'deviceType',
+  deviceId: 'deviceId',
+  accuracy: 'accuracy',
+  timestamp: 'timestamp',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MoodEntryScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  mood: 'mood',
+  confidence: 'confidence',
+  source: 'source',
+  emotions: 'emotions',
+  valence: 'valence',
+  arousal: 'arousal',
+  location: 'location',
+  weather: 'weather',
+  timeOfDay: 'timeOfDay',
+  activity: 'activity',
+  voiceFeatures: 'voiceFeatures',
+  timestamp: 'timestamp',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.StressPredictionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  predictedStressLevel: 'predictedStressLevel',
+  confidence: 'confidence',
+  predictedAt: 'predictedAt',
+  modelVersion: 'modelVersion',
+  triggers: 'triggers',
+  riskFactors: 'riskFactors',
+  recommendedInterventions: 'recommendedInterventions',
+  preventionStrategies: 'preventionStrategies',
+  actualStressLevel: 'actualStressLevel',
+  wasAccurate: 'wasAccurate',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.WellnessChallengeScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  type: 'type',
+  duration: 'duration',
+  target: 'target',
+  reward: 'reward',
+  isActive: 'isActive',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  maxParticipants: 'maxParticipants',
+  isPublic: 'isPublic',
+  teamBased: 'teamBased',
+  aiGenerated: 'aiGenerated',
+  adaptiveDifficulty: 'adaptiveDifficulty',
+  personalizedGoals: 'personalizedGoals',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ChallengeParticipantScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  challengeId: 'challengeId',
+  progress: 'progress',
+  completed: 'completed',
+  currentStreak: 'currentStreak',
+  bestStreak: 'bestStreak',
+  rank: 'rank',
+  joinedAt: 'joinedAt',
+  completedAt: 'completedAt'
+};
+
+exports.Prisma.AIRecommendationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  title: 'title',
+  description: 'description',
+  priority: 'priority',
+  reasoning: 'reasoning',
+  actionUrl: 'actionUrl',
+  duration: 'duration',
+  intensity: 'intensity',
+  triggeredBy: 'triggeredBy',
+  biometricState: 'biometricState',
+  effectivenessScore: 'effectivenessScore',
+  isRead: 'isRead',
+  isCompleted: 'isCompleted',
+  createdAt: 'createdAt',
+  expiresAt: 'expiresAt',
+  completedAt: 'completedAt'
+};
+
+exports.Prisma.DeviceConnectionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  deviceType: 'deviceType',
+  deviceId: 'deviceId',
+  deviceName: 'deviceName',
+  isConnected: 'isConnected',
+  lastSync: 'lastSync',
+  syncInterval: 'syncInterval',
+  reliability: 'reliability',
+  batteryLevel: 'batteryLevel',
+  signalStrength: 'signalStrength',
+  permissions: 'permissions',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.WellnessSessionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  sessionType: 'sessionType',
+  title: 'title',
+  duration: 'duration',
+  startingStress: 'startingStress',
+  endingStress: 'endingStress',
+  adaptations: 'adaptations',
+  avgHeartRate: 'avgHeartRate',
+  stressReduction: 'stressReduction',
+  userRating: 'userRating',
+  completionRate: 'completionRate',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt'
+};
+
+exports.Prisma.EnvironmentalDataScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  location: 'location',
+  timezone: 'timezone',
+  temperature: 'temperature',
+  humidity: 'humidity',
+  pressure: 'pressure',
+  weather: 'weather',
+  airQuality: 'airQuality',
+  pollutants: 'pollutants',
+  lightLevel: 'lightLevel',
+  uvIndex: 'uvIndex',
+  noiseLevel: 'noiseLevel',
+  timestamp: 'timestamp'
+};
+
+exports.Prisma.WellnessGroupScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  type: 'type',
+  isPublic: 'isPublic',
+  maxMembers: 'maxMembers',
+  groupGoals: 'groupGoals',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.GroupMembershipScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  groupId: 'groupId',
+  role: 'role',
+  shareProgress: 'shareProgress',
+  shareGoals: 'shareGoals',
+  joinedAt: 'joinedAt'
+};
+
+exports.Prisma.WorkplaceIntegrationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  platform: 'platform',
+  enabled: 'enabled',
+  frequency: 'frequency',
+  canSuggestBreaks: 'canSuggestBreaks',
+  canAccessCalendar: 'canAccessCalendar',
+  canSendReminders: 'canSendReminders',
+  workHours: 'workHours',
+  breakPreferences: 'breakPreferences',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -211,9 +440,24 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
+};
+
+exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
+};
+
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
 };
 
 exports.Prisma.NullsOrder = {
@@ -230,7 +474,19 @@ exports.Prisma.ModelName = {
   JournalEntry: 'JournalEntry',
   Habit: 'Habit',
   Class: 'Class',
-  Booking: 'Booking'
+  Booking: 'Booking',
+  BiometricData: 'BiometricData',
+  MoodEntry: 'MoodEntry',
+  StressPrediction: 'StressPrediction',
+  WellnessChallenge: 'WellnessChallenge',
+  ChallengeParticipant: 'ChallengeParticipant',
+  AIRecommendation: 'AIRecommendation',
+  DeviceConnection: 'DeviceConnection',
+  WellnessSession: 'WellnessSession',
+  EnvironmentalData: 'EnvironmentalData',
+  WellnessGroup: 'WellnessGroup',
+  GroupMembership: 'GroupMembership',
+  WorkplaceIntegration: 'WorkplaceIntegration'
 };
 
 /**

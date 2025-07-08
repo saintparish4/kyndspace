@@ -17,12 +17,35 @@ model User {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
+  // MindSync specific fields
+  timezone             String  @default("UTC")
+  preferences          Json? // User wellness preferences
+  aiCoachEnabled       Boolean @default(true)
+  biometricSyncEnabled Boolean @default(false)
+
+  // Wellness profile
+  baseStressLevel    Int?   @default(5) // 1-10 baseline
+  sleepGoal          Float? @default(8.0) // hours
+  stepsGoal          Int?   @default(10000)
+  workSchedule       Json? // Work hours and patterns
+  personalityProfile Json? // Big 5 or similar for personalization
+
   // Relations
-  sessions       Session[]
-  account        Account?
-  journalEntries JournalEntry[]
-  habits         Habit[]
-  bookings       Booking[]
+  sessions              Session[]
+  account               Account?
+  journalEntries        JournalEntry[]
+  habits                Habit[]
+  bookings              Booking[]
+  biometricData         BiometricData[]
+  moodEntries           MoodEntry[]
+  stressPredictions     StressPrediction[]
+  challengeParticipants ChallengeParticipant[]
+  aiRecommendations     AIRecommendation[]
+  deviceConnections     DeviceConnection[]
+  wellnessSessions      WellnessSession[]
+  environmentalData     EnvironmentalData[]
+  collaborativeGroups   GroupMembership[]
+  workplaceIntegrations WorkplaceIntegration[]
 
   @@map("users")
 }
@@ -37,7 +60,6 @@ model Session {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  // Relations
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
@@ -60,7 +82,6 @@ model Account {
   createdAt             DateTime  @default(now())
   updatedAt             DateTime  @updatedAt
 
-  // Relations
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
@@ -80,16 +101,25 @@ model Verification {
 }
 
 model JournalEntry {
-  id        String   @id @default(cuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  content   String
-  date      DateTime
+  id      String   @id @default(cuid())
+  userId  String
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  content String
+  date    DateTime
+
+  // AI analysis
+  mood          String? // AI-detected mood from journal content
+  stressLevel   Int? // 1-10 scale
+  emotionScores Json? // Detailed emotion analysis
+  topics        Json? // Extracted topics/themes
+  sentiment     Float? // -1 to 1 sentiment score
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@unique([userId, date])
   @@index([userId])
+  @@index([userId, date])
 }
 
 model Habit {
@@ -99,38 +129,427 @@ model Habit {
   title       String   @db.VarChar(255)
   isCompleted Boolean  @default(false)
   date        DateTime
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+
+  // AI features
+  aiSuggested      Boolean @default(false)
+  adaptiveReminder Json? // Dynamic reminder timing
+  difficultyLevel  Int?    @default(5) // 1-10 scale
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@unique([userId, id])
   @@index([userId, date])
 }
 
 model Class {
-  id           String    @id @default(cuid())
-  title        String    @db.VarChar(255)
-  description  String?   @db.Text
+  id           String   @id @default(cuid())
+  title        String   @db.VarChar(255)
+  description  String?  @db.Text
   startTime    DateTime
-  durationMins Int       @default(15)
-  instructor   String    @db.VarChar(100)
+  durationMins Int      @default(15)
+  instructor   String   @db.VarChar(100)
   imageUrl     String?
-  capacity     Int       @default(10)
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
-  bookings     Booking[]
+  capacity     Int      @default(10)
+  intensity    String   @default("moderate") // low, moderate, high
+
+  // AI optimization
+  stressLevel     Int? // Recommended stress level for this class
+  aiOptimized     Boolean @default(false)
+  adaptiveContent Json? // Content that adapts to user state
+  prerequisites   Json? // Required biometric states
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  bookings  Booking[]
 
   @@index([startTime])
+  @@index([intensity])
 }
 
 model Booking {
-  id        String   @id @default(cuid())
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String
-  class     Class    @relation(fields: [classId], references: [id], onDelete: Cascade)
-  classId   String
+  id      String @id @default(cuid())
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId  String
+  class   Class  @relation(fields: [classId], references: [id], onDelete: Cascade)
+  classId String
+
+  aiSuggested            Boolean @default(false)
+  predictedEffectiveness Float? // AI prediction of session effectiveness
+
   createdAt DateTime @default(now())
 
-  @@unique([userId, classId]) // One booking per class per user 
+  @@unique([userId, classId])
   @@index([userId])
   @@index([classId])
+}
+
+// Enhanced Biometric Data Model
+model BiometricData {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Core biometrics
+  heartRate            Int?
+  heartRateVariability Float?
+  stressLevel          Int? // 1-10 scale
+  sleepQuality         Int? // 1-10 scale
+  sleepDuration        Float? // hours
+  steps                Int?
+  calories             Int?
+
+  // Advanced metrics
+  respiratoryRate        Int?
+  skinTemperature        Float?
+  bloodPressureSystolic  Int?
+  bloodPressureDiastolic Int?
+  oxygenSaturation       Float?
+
+  // Processed metrics
+  wellnessScore Float? // Composite wellness score
+  energyLevel   Int? // 1-10 scale
+  recoveryScore Float? // 0-100 scale
+
+  // Device info
+  deviceType String? // "fitbit", "apple_watch", "webcam", etc.
+  deviceId   String?
+  accuracy   Float? // Confidence in reading
+
+  timestamp DateTime @default(now())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId, timestamp])
+  @@index([timestamp])
+  @@index([userId, deviceType])
+}
+
+// Enhanced Mood Detection
+model MoodEntry {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Primary mood
+  mood       String // "happy", "sad", "stressed", "calm", "anxious", etc.
+  confidence Float // AI confidence score 0-1
+  source     String // "voice", "facial", "manual", "journal", "biometric"
+
+  // Detailed emotion analysis
+  emotions Json? // Multi-emotion scores
+  valence  Float? // Positive/negative -1 to 1
+  arousal  Float? // High/low energy -1 to 1
+
+  // Context
+  location  String?
+  weather   String?
+  timeOfDay String? // "morning", "afternoon", "evening", "night"
+  activity  String? // What user was doing
+
+  // Voice analysis (if applicable)
+  voiceFeatures Json? // Pitch, tone, pace, etc.
+
+  timestamp DateTime @default(now())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId, timestamp])
+  @@index([timestamp])
+  @@index([userId, mood])
+}
+
+// Enhanced Stress Prediction
+model StressPrediction {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  predictedStressLevel Int // 1-10 scale
+  confidence           Float // 0-1
+  predictedAt          DateTime // When stress is predicted to occur
+
+  // Prediction details
+  modelVersion String? // ML model version used
+  triggers     Json? // Array of stress triggers
+  riskFactors  Json? // Contributing factors
+
+  // Recommendations
+  recommendedInterventions Json? // Array of recommended interventions
+  preventionStrategies     Json? // Proactive strategies
+
+  // Validation
+  actualStressLevel Int? // Actual stress level (for model improvement)
+  wasAccurate       Boolean? // Was prediction accurate
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId, predictedAt])
+  @@index([predictedAt])
+  @@index([userId, confidence])
+}
+
+// Enhanced Wellness Challenges
+model WellnessChallenge {
+  id          String  @id @default(cuid())
+  title       String
+  description String
+  type        String // "meditation", "exercise", "sleep", "social", "custom", "biometric"
+  duration    Int // days
+  target      Json // Challenge target/goal
+  reward      String?
+
+  // Real-time features
+  isActive  Boolean  @default(true)
+  startDate DateTime
+  endDate   DateTime
+
+  // Collaboration
+  maxParticipants Int?    @default(10)
+  isPublic        Boolean @default(false)
+  teamBased       Boolean @default(false)
+
+  // AI features
+  aiGenerated        Boolean @default(false)
+  adaptiveDifficulty Boolean @default(false)
+  personalizedGoals  Json? // Per-user goal variations
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  participants ChallengeParticipant[]
+
+  @@index([startDate, endDate])
+  @@index([isActive])
+  @@index([type])
+}
+
+model ChallengeParticipant {
+  id          String            @id @default(cuid())
+  userId      String
+  user        User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  challengeId String
+  challenge   WellnessChallenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+
+  progress  Json // Current progress data
+  completed Boolean @default(false)
+
+  // Real-time features
+  currentStreak Int  @default(0)
+  bestStreak    Int  @default(0)
+  rank          Int? // Current rank in challenge
+
+  joinedAt    DateTime  @default(now())
+  completedAt DateTime?
+
+  @@unique([userId, challengeId])
+  @@index([userId])
+  @@index([challengeId])
+}
+
+// Enhanced AI Recommendations
+model AIRecommendation {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  type        String // "meditation", "exercise", "break", "social", "sleep", "nutrition"
+  title       String
+  description String
+  priority    Int // 1-5 scale
+  reasoning   String // AI explanation for recommendation
+
+  // Action data
+  actionUrl String?
+  duration  Int? // minutes
+  intensity String? // "low", "moderate", "high"
+
+  // Context
+  triggeredBy    Json? // What triggered this recommendation
+  biometricState Json? // User's biometric state when generated
+
+  // Effectiveness tracking
+  effectivenessScore Float? // User feedback on effectiveness
+
+  // Status
+  isRead      Boolean @default(false)
+  isCompleted Boolean @default(false)
+
+  createdAt   DateTime  @default(now())
+  expiresAt   DateTime?
+  completedAt DateTime?
+
+  @@index([userId, createdAt])
+  @@index([isRead])
+  @@index([expiresAt])
+  @@index([userId, priority])
+}
+
+// Enhanced Device Management
+model DeviceConnection {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  deviceType String // "fitbit", "apple_watch", "webcam", "microphone", "smartphone"
+  deviceId   String
+  deviceName String?
+
+  // Connection status
+  isConnected  Boolean   @default(false)
+  lastSync     DateTime?
+  syncInterval Int? // minutes
+
+  // Data quality
+  reliability    Float? // 0-1 reliability score
+  batteryLevel   Int? // Battery percentage
+  signalStrength Float? // Connection quality
+
+  // Permissions
+  permissions Json // Array of granted permissions
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, deviceType, deviceId])
+  @@index([userId])
+  @@index([isConnected])
+}
+
+// New Models for Advanced Features
+
+// Wellness Sessions (Meditation, Exercise, etc.)
+model WellnessSession {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  sessionType String // "meditation", "breathing", "exercise", "sleep"
+  title       String
+  duration    Int // minutes
+
+  // Real-time adaptation
+  startingStress Int? // Stress level at start
+  endingStress   Int? // Stress level at end
+  adaptations    Json? // How session was adapted in real-time
+
+  // Biometric tracking during session
+  avgHeartRate    Int?
+  stressReduction Float? // Calculated stress reduction
+
+  // Effectiveness
+  userRating     Int? // 1-5 rating
+  completionRate Float? // Percentage completed
+
+  startedAt   DateTime  @default(now())
+  completedAt DateTime?
+
+  @@index([userId, startedAt])
+  @@index([sessionType])
+}
+
+// Environmental Data
+model EnvironmentalData {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Location
+  location String?
+  timezone String?
+
+  // Weather
+  temperature Float?
+  humidity    Float?
+  pressure    Float?
+  weather     String? // "sunny", "rainy", "cloudy", etc.
+
+  // Air quality
+  airQuality Int? // AQI score
+  pollutants Json? // Detailed pollutant data
+
+  // Lighting
+  lightLevel Float? // Lux
+  uvIndex    Float?
+
+  // Noise
+  noiseLevel Float? // Decibels
+
+  timestamp DateTime @default(now())
+
+  @@index([userId, timestamp])
+  @@index([timestamp])
+}
+
+// Collaborative Wellness Groups
+model WellnessGroup {
+  id          String  @id @default(cuid())
+  name        String
+  description String?
+  type        String // "workplace", "family", "friends", "public"
+
+  // Group settings
+  isPublic   Boolean @default(false)
+  maxMembers Int?    @default(50)
+
+  // Group goals
+  groupGoals Json? // Shared wellness goals
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  members GroupMembership[]
+
+  @@index([type])
+  @@index([isPublic])
+}
+
+model GroupMembership {
+  id      String        @id @default(cuid())
+  userId  String
+  user    User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  groupId String
+  group   WellnessGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+
+  role String @default("member") // "admin", "member", "moderator"
+
+  // Sharing preferences
+  shareProgress Boolean @default(true)
+  shareGoals    Boolean @default(true)
+
+  joinedAt DateTime @default(now())
+
+  @@unique([userId, groupId])
+  @@index([userId])
+  @@index([groupId])
+}
+
+// Workplace Integration
+model WorkplaceIntegration {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  platform String // "slack", "teams", "email", "calendar"
+
+  // Integration settings
+  enabled   Boolean @default(true)
+  frequency String  @default("moderate") // "low", "moderate", "high"
+
+  // Permissions
+  canSuggestBreaks  Boolean @default(true)
+  canAccessCalendar Boolean @default(false)
+  canSendReminders  Boolean @default(true)
+
+  // Configuration
+  workHours        Json? // Work schedule
+  breakPreferences Json? // Break preferences
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, platform])
+  @@index([userId])
+  @@index([platform])
 }

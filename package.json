@@ -1,26 +1,45 @@
 {
-  "name": "kynd",
+  "name": "mindsync",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
-  },
-  "prisma": {
-    "seed": "tsx prisma/seed.ts"
+    "lint": "next lint",
+    "db:push": "prisma db push",
+    "db:generate": "prisma generate"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.3.4",
     "@prisma/client": "^6.8.2",
     "@prisma/extension-accelerate": "^2.0.1",
     "@tanstack/react-query": "^5.80.7",
+    "@tensorflow/tfjs": "^4.22.0",
+    "@tensorflow/tfjs-node": "^4.22.0",
+    "axios": "^1.6.7",
     "better-auth": "^1.2.8",
+    "chart.js": "^4.4.1",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
     "date-fns": "^4.1.0",
+    "framer-motion": "^11.0.8",
+    "jwt-decode": "^4.0.0",
+    "lucide-react": "^0.344.0",
     "next": "^15.3.3",
     "react": "^19.1.0",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^19.1.0",
-    "react-icons": "^5.5.0"
+    "react-hook-form": "^7.49.3",
+    "react-hot-toast": "^2.4.1",
+    "react-icons": "^5.5.0",
+    "react-speech-recognition": "^3.10.0",
+    "react-webcam": "^7.2.0",
+    "recharts": "^2.10.4",
+    "socket.io": "^4.7.4",
+    "socket.io-client": "^4.7.4",
+    "tailwind-merge": "^2.2.1",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

@@ -13,8 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Meditation and Mindfulness Made Simple - Kyndspace",
-  description: "Your personal wellness journey companion - connect, grow, and thrive",
+  title: "MindSync - AI-Powered Wellness Platform with Real-Time Biometric Integration",
+  description: "The first truly intelligent wellness platform that adapts to your real-time state. Connect wearables, detect stress patterns, and get personalized AI recommendations for optimal wellness.",
+  keywords: "AI wellness, biometric integration, stress prediction, real-time mood detection, wearable devices, meditation, mindfulness, health optimization",
 };
 
 export default function RootLayout({
