@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MindSync - AI-Powered Wellness Platform with Real-Time Biometric Integration",
-  description: "The first truly intelligent wellness platform that adapts to your real-time state. Connect wearables, detect stress patterns, and get personalized AI recommendations for optimal wellness.",
-  keywords: "AI wellness, biometric integration, stress prediction, real-time mood detection, wearable devices, meditation, mindfulness, health optimization",
+  title: "NotebookLM - Your Personalized AI Research Assistant",
+  description: "The ultimate tool for understanding the information that matters most to you, built with Gemini 2.0. Upload your sources and get instant insights.",
+  keywords: "AI research assistant, Gemini 2.0, document analysis, PDF upload, YouTube analysis, Google Docs, research tool, AI insights",
 };
 
 export default function RootLayout({
